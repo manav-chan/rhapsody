@@ -1,1 +1,2 @@
-# Rhapsody - A place to store your technical and non technical adventures
+# Rhapsody 
+## A place to store your technical and non technical adventures
