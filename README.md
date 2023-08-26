@@ -1,7 +1,7 @@
 # Rhapsody  
 A place to store your technical and non technical adventures
 
-## Self Reference 
+## Getting started
 
 - Run the command to create a Go module which is similar to package.json
 ```terminal
