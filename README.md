@@ -21,3 +21,7 @@ go get github.com/gofiber/fiber/v2
 ```terminal
 go get github.com/joho/godotenv
 ```
+- Installing bcrypt for encryption of password
+```terminal
+go get golang.org/x/crypto/bcrypt
+```
