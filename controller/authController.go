@@ -111,9 +111,10 @@ func Login(c *fiber.Ctx) error {
 	cookie := fiber.Cookie {
 		Name: "jwt",
 		Value: token,
-		Expires: time.Now().Add(time.Hour * 24),
+		Expires: time.Now().Add(time.Hour * 24), // expires after 24 hours
 		HTTPOnly: true,
 	}
+	
 	c.Cookie(&cookie)
 	return c.JSON(fiber.Map {
 		"message":"you have successfully logged in",

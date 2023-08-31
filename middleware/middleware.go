@@ -1,4 +1,4 @@
-// what if user could not login or access api
+// acts as a gatekeeper that ensures users are authenticated and authorized before accessing certain parts of a web application or API.
 package middleware
 
 import (
