@@ -27,5 +27,5 @@ go get golang.org/x/crypto/bcrypt
 ```
 - Installing JWT Go for user authentication
 ```terminal
-go get -u github.com/dgrijalva/jwt-go
+go get -u github.com/golang-jwt/jwt
 ```
