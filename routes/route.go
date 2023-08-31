@@ -9,5 +9,5 @@ func Setup(app *fiber.App) {
 	app.Post("/api/register", controller.Register)
 	app.Post("/api/login", controller.Login)
 
-	app.Use(middleware.IsAuthenticated
+	// app.Use(middleware.IsAuthenticated)
 }
