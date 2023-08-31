@@ -5,8 +5,11 @@ import (
 	"log"
 	"strings"
 	"regexp"
+	"time"
+	"strconv"
 
 	"github.com/gofiber/fiber/v2"
+	"github.com/golang-jwt/jwt"
 	"github.com/manav-chan/rhapsody/models"
 	"github.com/manav-chan/rhapsody/database"
 	"github.com/manav-chan/rhapsody/util"
@@ -101,7 +104,7 @@ func Login(c *fiber.Ctx) error {
 	// if correct - authenticate user
 	token, err := util.GenerateJwt(strconv.Itoa(int(user.Id)), )
 	if err != nil {
-		c.Status(fiber.StatusInternalSeverError)
+		c.Status(fiber.StatusInternalServerError)
 		return nil
 	}
 
@@ -109,11 +112,15 @@ func Login(c *fiber.Ctx) error {
 		Name: "jwt",
 		Value: token,
 		Expires: time.Now().Add(time.Hour * 24),
-		HTTPonly: true,
+		HTTPOnly: true,
 	}
 	c.Cookie(&cookie)
-	return c.JSON(fiber.Map) {
+	return c.JSON(fiber.Map {
 		"message":"you have successfully logged in",
 		"user":user,
-	}
+	})
+}
+
+type Claims struct {
+	jwt.StandardClaims
 }
