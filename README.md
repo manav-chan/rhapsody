@@ -25,3 +25,7 @@ go get github.com/joho/godotenv
 ```terminal
 go get golang.org/x/crypto/bcrypt
 ```
+- Installing JWT Go for user authentication
+```terminal
+go get -u github.com/dgrijalva/jwt-go
+```
