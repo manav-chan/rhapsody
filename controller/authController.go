@@ -5,10 +5,11 @@ import (
 	"log"
 	"strings"
 	"regexp"
+
 	"github.com/gofiber/fiber/v2"
 	"github.com/manav-chan/rhapsody/models"
 	"github.com/manav-chan/rhapsody/database"
-	
+	"github.com/manav-chan/rhapsody/util"
 )
 
 func validateEmail(email string) bool {
@@ -71,4 +72,48 @@ func Register(c *fiber.Ctx) error {
 		"user" : user,
 		"message" : "Account Created Successfully",
 	})
+}
+
+func Login(c *fiber.Ctx) error {
+	var data map[string] string
+	if err := c.BodyParser(&data); err != nil {
+		fmt.Println("Unable to parse body")
+	}
+	
+	// checks if user's email is present in db or not
+	var user models.User
+	database.DB.Where("email=?", data["email"]).First(&user)
+	if user.Id == 0 {
+		c.Status(404)
+		return c.JSON(fiber.Map{
+			"message" : "Email address does not exist, kindly createa an account",
+		})
+	}
+
+	// checks if password is correct or not
+	if err := user.ComparePassword(data["password"]); err != nil {
+		c.Status(400) // Bad Request
+		return c.JSON(fiber.Map {
+			"message" : "Incorrect password",
+		})
+	}
+
+	// if correct - authenticate user
+	token, err := util.GenerateJwt(strconv.Itoa(int(user.Id)), )
+	if err != nil {
+		c.Status(fiber.StatusInternalSeverError)
+		return nil
+	}
+
+	cookie := fiber.Cookie {
+		Name: "jwt",
+		Value: token,
+		Expires: time.Now().Add(time.Hour * 24),
+		HTTPonly: true,
+	}
+	c.Cookie(&cookie)
+	return c.JSON(fiber.Map) {
+		"message":"you have successfully logged in",
+		"user":user,
+	}
 }
