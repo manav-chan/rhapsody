@@ -29,5 +29,6 @@ func Connect() {
 	// create table in database
 	DB.AutoMigrate(
 		&models.User{},
+		&models.Blog{},
 	)
 }
